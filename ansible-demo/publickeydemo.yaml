@@ -1,0 +1,15 @@
+---
+- hosts:server
+
+  tasks:
+    - name: copyingpublic key
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+      become: true
+
+    - name: starting httpd
+      service: name=httpd state=started
+      become: true
+
